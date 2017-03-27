@@ -79,4 +79,5 @@ int main(int argc, const char *argv[]) {
   Finder.addMatcher(LoopMatcher, &Printer);
 
   return Tool.run(newFrontendActionFactory(&Finder).get());
+  
 }
