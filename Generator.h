@@ -1,5 +1,5 @@
 //
-// Created on Mon Mar 27 2017
+// Created on Tue Mar 28 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -19,4 +19,10 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#include "VarDeclTransform.h"
+#ifndef DYNAMOC_GENERATOR_HEADER
+#define DYNAMOC_GENERATOR_HEADER
+
+#include "VarDeclGenerator.h"
+#include "CompoundStatementGenerator.h"
+
+#endif

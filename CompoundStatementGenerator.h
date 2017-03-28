@@ -1,5 +1,5 @@
 //
-// Created on Mon Mar 27 2017
+// Created on Tue Mar 28 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -18,3 +18,23 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+
+#ifndef DYNAMOC_GENERATOR_COMPOUNDSTMT
+#define DYNAMOC_GENERATOR_COMPOUNDSTMT
+
+#include "clang/ASTMatchers/ASTMatchFinder.h"
+#include "clang/ASTMatchers/ASTMatchers.h"
+#include "GeneratorInterface.h"
+
+class CompoundStatementGenerator: public GeneratorInterface<clang::ast_matchers::StatementMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
+public:
+    CompoundStatementGenerator();
+    virtual ~CompoundStatementGenerator();
+    virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
+    virtual const clang::ast_matchers::StatementMatcher& matcher();
+private:
+    std::string bindName_;
+    clang::ast_matchers::StatementMatcher matcher_;
+};
+
+#endif
