@@ -1,5 +1,5 @@
 //
-// Created on Tue Mar 28 2017
+// Created on Wed Mar 29 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -20,36 +20,22 @@
 //
 
 
-#include "CompoundStatementGenerator.h"
-#include "clang/AST/ASTContext.h"
-#include "clang/AST/Stmt.h"
-#include <iostream>
-#include <string>
+#ifndef DYNAMOC_GENERATOR_METHODDECL
+#define DYNAMOC_GENERATOR_METHODDECL
 
-using namespace std;
-using namespace clang;
-using namespace clang::ast_matchers;
+#include "clang/ASTMatchers/ASTMatchFinder.h"
+#include "clang/ASTMatchers/ASTMatchers.h"
+#include "GeneratorInterface.h"
 
-CompoundStatementGenerator::CompoundStatementGenerator(): bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
-{
+class ObjCMethodDeclGenerator: public GeneratorInterface<clang::ast_matchers::DeclarationMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
+public:
+    ObjCMethodDeclGenerator();
+    virtual ~ObjCMethodDeclGenerator();
+    virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
+    virtual const clang::ast_matchers::DeclarationMatcher& matcher();
+private:
+    std::string bindName_;
+    clang::ast_matchers::DeclarationMatcher matcher_;
+};
 
-}
-
-CompoundStatementGenerator::~CompoundStatementGenerator()
-{
-
-}
-
-void CompoundStatementGenerator::run(const MatchFinder::MatchResult &result) 
-{
-    ASTContext *Context = result.Context;
-    const CompoundStmt *stmt = result.Nodes.getNodeAs<CompoundStmt>(bindName_);
-    if(!stmt || !Context->getSourceManager().isWrittenInMainFile(stmt->getLocStart()))
-        return;
-    stmt->dump();
-}
-
-const StatementMatcher& CompoundStatementGenerator::matcher()
-{
-    return matcher_;
-}
+#endif

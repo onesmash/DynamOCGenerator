@@ -74,11 +74,13 @@ int main(int argc, const char *argv[]) {
   CommonOptionsParser optionsParser(argc, argv, myToolCategory);
   ClangTool tool(optionsParser.getCompilations(),
                  optionsParser.getSourcePathList());
-
+  
   MatchFinder finder;
   VarDeclGenerator varDeclGen;
   CompoundStatementGenerator compoundStmtGen;
+  ObjCMethodDeclGenerator objcMethodDeclGen;
   finder.addMatcher(varDeclGen.matcher(), &varDeclGen);
   finder.addMatcher(compoundStmtGen.matcher(), &compoundStmtGen);
+  finder.addMatcher(objcMethodDeclGen.matcher(), &objcMethodDeclGen);
   return tool.run(newFrontendActionFactory(&finder).get());
 }

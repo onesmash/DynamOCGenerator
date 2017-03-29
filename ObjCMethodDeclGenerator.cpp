@@ -1,5 +1,6 @@
+
 //
-// Created on Tue Mar 28 2017
+// Created on Wed Mar 29 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -20,9 +21,8 @@
 //
 
 
-#include "CompoundStatementGenerator.h"
-#include "clang/AST/ASTContext.h"
-#include "clang/AST/Stmt.h"
+#include "ObjCMethodDeclGenerator.h"
+#include "clang/AST/DeclObjC.h"
 #include <iostream>
 #include <string>
 
@@ -30,26 +30,31 @@ using namespace std;
 using namespace clang;
 using namespace clang::ast_matchers;
 
-CompoundStatementGenerator::CompoundStatementGenerator(): bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
+const internal::VariadicDynCastAllOfMatcher<
+  Decl,
+  ObjCMethodDecl> objcMethodDecl;
+
+ObjCMethodDeclGenerator::ObjCMethodDeclGenerator(): bindName_("ObjCMethodDecl"), matcher_(objcMethodDecl().bind(bindName_))
 {
 
 }
 
-CompoundStatementGenerator::~CompoundStatementGenerator()
+ObjCMethodDeclGenerator::~ObjCMethodDeclGenerator()
 {
 
 }
 
-void CompoundStatementGenerator::run(const MatchFinder::MatchResult &result) 
+void ObjCMethodDeclGenerator::run(const MatchFinder::MatchResult &result) 
 {
-    ASTContext *Context = result.Context;
-    const CompoundStmt *stmt = result.Nodes.getNodeAs<CompoundStmt>(bindName_);
-    if(!stmt || !Context->getSourceManager().isWrittenInMainFile(stmt->getLocStart()))
+    ASTContext *context = result.Context;
+    const ObjCMethodDecl *md = result.Nodes.getNodeAs<ObjCMethodDecl>(bindName_);
+    if(!md || !context->getSourceManager().isWrittenInMainFile(md->getLocation()))
         return;
-    stmt->dump();
+    cout << context->getObjCEncodingForMethodDecl(md, true) << endl;
+    md->dump();
 }
 
-const StatementMatcher& CompoundStatementGenerator::matcher()
+const DeclarationMatcher& ObjCMethodDeclGenerator::matcher()
 {
     return matcher_;
 }

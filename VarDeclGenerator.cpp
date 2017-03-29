@@ -40,10 +40,12 @@ VarDeclGenerator::~VarDeclGenerator()
 
 void VarDeclGenerator::run(const MatchFinder::MatchResult &result) 
 {
-    if (const VarDecl *vd = result.Nodes.getNodeAs<VarDecl>(bindName_)) {
-        if(vd->isLocalVarDecl()) {
-            vd->dump();
-        }
+    ASTContext *Context = result.Context;
+    const VarDecl *vd = result.Nodes.getNodeAs<VarDecl>(bindName_);
+    if(!vd || !Context->getSourceManager().isWrittenInMainFile(vd->getLocation()))
+        return;
+    if(vd->isLocalVarDecl()) {
+        vd->dump();
     }
 }
 
