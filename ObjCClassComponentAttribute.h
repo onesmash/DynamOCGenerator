@@ -26,6 +26,9 @@
 
 class ObjCClassComponentAttribute {
 public:
+    ObjCClassComponentAttribute() {}
+    ObjCClassComponentAttribute(const ObjCClassComponentAttribute& attribute);
+    ~ObjCClassComponentAttribute() {}
     std::string typeEncode;
     std::string name;
 };

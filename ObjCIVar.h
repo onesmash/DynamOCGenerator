@@ -26,7 +26,9 @@
 
 class ObjCIVar: public ObjCClassComponentAttribute {
 public:
-    
+    ObjCIVar() {}
+    ObjCIVar(const ObjCIVar& ivar);
+    ~ObjCIVar() {}
 };
 
 #endif

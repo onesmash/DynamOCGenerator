@@ -27,6 +27,9 @@
 
 class ObjCMethod: public ObjCClassComponentAttribute {
 public:
+    ObjCMethod() {}
+    ObjCMethod(const ObjCMethod& method);
+    ~ObjCMethod() {}
     bool isInstanceMethod;
     std::stringstream codeBuffer;
 };

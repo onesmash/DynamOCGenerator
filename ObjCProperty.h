@@ -31,6 +31,8 @@ public:
         kOwnerShipTypeWeak,
         kOwnerShipTypeCopy
     };
+    ObjCProperty() {}
+    ObjCProperty(const ObjCProperty& property);
     bool readOnly;
     OwnerShipType ownerShip;
     bool nonatomic;

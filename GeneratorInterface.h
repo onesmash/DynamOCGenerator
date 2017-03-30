@@ -4,8 +4,9 @@
 template <typename MatcherT>
 class GeneratorInterface {
 public:
+    typedef MatcherT MatcherType;
     virtual ~GeneratorInterface() = 0;
-    virtual const MatcherT& matcher() = 0;
+    virtual const MatcherType& matcher() = 0;
 };
 
 #include "GeneratorInterfaceImp.h"

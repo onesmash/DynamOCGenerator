@@ -12,6 +12,11 @@ add_clang_executable(DynamOCGenerator
   SynchronizedStatementGenerator.cpp
   AutoreleaseStatementGenerator.cpp
   ObjCMethodDeclGenerator.cpp
+  ObjCClassComponentAttribute.cpp
+  ObjCIVar.cpp
+  ObjCProperty.cpp
+  ObjCMethod.cpp
+  GenerateContext.cpp
   main.cpp
   )
 target_link_libraries(DynamOCGenerator
