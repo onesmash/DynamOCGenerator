@@ -28,7 +28,8 @@ using namespace std;
 using namespace clang;
 using namespace clang::ast_matchers;
 
-VarDeclGenerator::VarDeclGenerator(): bindName_("varDecl"), matcher_(varDecl().bind(bindName_))
+VarDeclGenerator::VarDeclGenerator(shared_ptr<GenerateContext> context)
+: GeneratorInterface(context), bindName_("varDecl"), matcher_(varDecl().bind(bindName_))
 {
 
 }

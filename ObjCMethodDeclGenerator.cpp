@@ -34,7 +34,8 @@ const internal::VariadicDynCastAllOfMatcher<
   Decl,
   ObjCMethodDecl> objcMethodDecl;
 
-ObjCMethodDeclGenerator::ObjCMethodDeclGenerator(): bindName_("ObjCMethodDecl"), matcher_(objcMethodDecl().bind(bindName_))
+ObjCMethodDeclGenerator::ObjCMethodDeclGenerator(std::shared_ptr<GenerateContext> context)
+: GeneratorInterface(context), bindName_("ObjCMethodDecl"), matcher_(objcMethodDecl().bind(bindName_))
 {
 
 }

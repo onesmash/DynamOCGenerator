@@ -19,6 +19,11 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+template <typename MatcherT>
+GeneratorInterface<MatcherT>::GeneratorInterface(const GeneratorInterface<MatcherT>& interface)
+: context_(interface.context_)
+{
+}
 
 template <typename MatcherT>
 GeneratorInterface<MatcherT>::~GeneratorInterface()

@@ -28,7 +28,7 @@
 
 class CompoundStatementGenerator: public GeneratorInterface<clang::ast_matchers::StatementMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
 public:
-    CompoundStatementGenerator();
+    CompoundStatementGenerator(std::shared_ptr<GenerateContext> context);
     virtual ~CompoundStatementGenerator();
     virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
     virtual const clang::ast_matchers::StatementMatcher& matcher();

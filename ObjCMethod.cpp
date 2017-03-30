@@ -22,6 +22,6 @@
 #include "ObjCMethod.h"
 
 ObjCMethod::ObjCMethod(const ObjCMethod& method)
-: ObjCClassComponentAttribute(method), isInstanceMethod(method.isInstanceMethod), codeBuffer(method.codeBuffer)
+: ObjCClassComponentAttribute(method), isInstanceMethod(method.isInstanceMethod), codeBuffer(method.codeBuffer.str())
 {
 }

@@ -25,5 +25,6 @@
 #include "VarDeclGenerator.h"
 #include "CompoundStatementGenerator.h"
 #include "ObjCMethodDeclGenerator.h"
+#include "GenerateContext.h"
 
 #endif

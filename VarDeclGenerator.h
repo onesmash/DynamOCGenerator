@@ -26,9 +26,11 @@
 #include "clang/ASTMatchers/ASTMatchers.h"
 #include "GeneratorInterface.h"
 
+class GenerateContext;
+
 class VarDeclGenerator: public GeneratorInterface<clang::ast_matchers::DeclarationMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
 public:
-    VarDeclGenerator();
+    VarDeclGenerator(std::shared_ptr<GenerateContext> context);
     virtual ~VarDeclGenerator();
     virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
     virtual const clang::ast_matchers::DeclarationMatcher& matcher();

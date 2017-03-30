@@ -76,9 +76,10 @@ int main(int argc, const char *argv[]) {
                  optionsParser.getSourcePathList());
   
   MatchFinder finder;
-  VarDeclGenerator varDeclGen;
-  CompoundStatementGenerator compoundStmtGen;
-  ObjCMethodDeclGenerator objcMethodDeclGen;
+  std::shared_ptr<GenerateContext> genContext = std::make_shared<GenerateContext>();
+  VarDeclGenerator varDeclGen(genContext);
+  CompoundStatementGenerator compoundStmtGen(genContext);
+  ObjCMethodDeclGenerator objcMethodDeclGen(genContext);
   finder.addMatcher(varDeclGen.matcher(), &varDeclGen);
   finder.addMatcher(compoundStmtGen.matcher(), &compoundStmtGen);
   finder.addMatcher(objcMethodDeclGen.matcher(), &objcMethodDeclGen);

@@ -30,7 +30,8 @@ using namespace std;
 using namespace clang;
 using namespace clang::ast_matchers;
 
-CompoundStatementGenerator::CompoundStatementGenerator(): bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
+CompoundStatementGenerator::CompoundStatementGenerator(shared_ptr<GenerateContext> context)
+: GeneratorInterface(context), bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
 {
 
 }

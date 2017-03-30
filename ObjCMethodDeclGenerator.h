@@ -29,7 +29,7 @@
 
 class ObjCMethodDeclGenerator: public GeneratorInterface<clang::ast_matchers::DeclarationMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
 public:
-    ObjCMethodDeclGenerator();
+    ObjCMethodDeclGenerator(std::shared_ptr<GenerateContext> context);
     virtual ~ObjCMethodDeclGenerator();
     virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
     virtual const clang::ast_matchers::DeclarationMatcher& matcher();
