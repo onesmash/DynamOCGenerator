@@ -24,6 +24,7 @@
 
 #include "ObjCClassComponentAttribute.h"
 #include <sstream>
+#include <string>
 #include <vector>
 
 class DynamOCMethod: public ObjCClassComponentAttribute {

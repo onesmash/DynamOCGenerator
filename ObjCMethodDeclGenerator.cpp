@@ -58,6 +58,12 @@ void ObjCMethodDeclGenerator::run(const MatchFinder::MatchResult &result)
     context_->currentGenMethod = std::make_shared<DynamOCMethod>();
     context_->currentGenMethod->name = md->getNameAsString();
     context_->currentGenMethod->typeEncode = context->getObjCEncodingForMethodDecl(md, true);
+    context_->currentGenMethod->isInstanceMethod = md->isInstanceMethod(); 
+    for (auto iter = md->param_begin(); iter != md->param_end(); iter++) {
+        string name = (*iter)->getNameAsString();
+        context_->currentGenMethod->paramNames.push_back(name);
+        cout << name << endl;
+    }
 }
 
 const DeclarationMatcher& ObjCMethodDeclGenerator::matcher()
