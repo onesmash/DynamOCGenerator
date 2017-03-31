@@ -1,5 +1,5 @@
 //
-// Created on Fri Mar 31 2017
+// Created on Thu Mar 30 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -19,19 +19,26 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#include "GenerateContext.h"
+#ifndef DYNAMOC_GENERATOR_OBJCPROPERTY
+#define DYNAMOC_GENERATOR_OBJCPROPERTY
 
-void GenerateContext::addIVar(const DynamOCIVar& ivar)
-{
+#include "ObjCClassComponentAttribute.h"
 
-}
+class DynamOCProperty: public ObjCClassComponentAttribute {
+public:
+    enum OwnerShipType {
+        kOwnerShipTypeStrong,
+        kOwnerShipTypeWeak,
+        kOwnerShipTypeCopy
+    };
+    DynamOCProperty() {}
+    DynamOCProperty(const DynamOCProperty& property);
+    bool readOnly;
+    OwnerShipType ownerShip;
+    bool nonatomic;
+    std::string setterName;
+    std::string getterName;
+    std::string ivarName;
+};
 
-void GenerateContext::addPropery(const DynamOCProperty& property)
-{
-
-}
-
-void GenerateContext::addMethod(const DynamOCMethod& method)
-{
-    model_.methods.insert({method.name, method});
-}
+#endif

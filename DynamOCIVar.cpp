@@ -19,8 +19,8 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#include "ObjCIVar.h"
+#include "DynamOCIVar.h"
 
-ObjCIVar::ObjCIVar(const ObjCIVar& ivar): ObjCClassComponentAttribute(ivar)
+DynamOCIVar::DynamOCIVar(const DynamOCIVar& ivar): ObjCClassComponentAttribute(ivar)
 {
 }

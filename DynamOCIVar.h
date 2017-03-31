@@ -19,9 +19,16 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#include "ObjCMethod.h"
+#ifndef DYNAMOC_GENERATOR_OBJCIVAR
+#define DYNAMOC_GENERATOR_OBJCIVAR
 
-ObjCMethod::ObjCMethod(const ObjCMethod& method)
-: ObjCClassComponentAttribute(method), isInstanceMethod(method.isInstanceMethod), codeBuffer(method.codeBuffer.str())
-{
-}
+#include "ObjCClassComponentAttribute.h"
+
+class DynamOCIVar: public ObjCClassComponentAttribute {
+public:
+    DynamOCIVar() {}
+    DynamOCIVar(const DynamOCIVar& ivar);
+    ~DynamOCIVar() {}
+};
+
+#endif

@@ -49,10 +49,15 @@ void ObjCMethodDeclGenerator::run(const MatchFinder::MatchResult &result)
 {
     ASTContext *context = result.Context;
     const ObjCMethodDecl *md = result.Nodes.getNodeAs<ObjCMethodDecl>(bindName_);
-    if(!md || !context->getSourceManager().isWrittenInMainFile(md->getLocation()))
+    if(!md || !context->getSourceManager().isWrittenInMainFile(md->getLocation()) || !md->hasBody())
         return;
-    cout << context->getObjCEncodingForMethodDecl(md, true) << endl;
-    md->dump();
+    if(context_->currentGenMethod != nullptr) {
+        context_->addMethod(*(context_->currentGenMethod));
+        context_->currentGenMethod = nullptr;
+    }
+    context_->currentGenMethod = std::make_shared<DynamOCMethod>();
+    context_->currentGenMethod->name = md->getNameAsString();
+    context_->currentGenMethod->typeEncode = context->getObjCEncodingForMethodDecl(md, true);
 }
 
 const DeclarationMatcher& ObjCMethodDeclGenerator::matcher()

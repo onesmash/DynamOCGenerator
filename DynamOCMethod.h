@@ -19,26 +19,21 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#ifndef DYNAMOC_GENERATOR_OBJCPROPERTY
-#define DYNAMOC_GENERATOR_OBJCPROPERTY
+#ifndef DYNAMOC_GENERATOR_OBJCMETHOD
+#define DYNAMOC_GENERATOR_OBJCMETHOD
 
 #include "ObjCClassComponentAttribute.h"
+#include <sstream>
+#include <vector>
 
-class ObjCProperty: public ObjCClassComponentAttribute {
+class DynamOCMethod: public ObjCClassComponentAttribute {
 public:
-    enum OwnerShipType {
-        kOwnerShipTypeStrong,
-        kOwnerShipTypeWeak,
-        kOwnerShipTypeCopy
-    };
-    ObjCProperty() {}
-    ObjCProperty(const ObjCProperty& property);
-    bool readOnly;
-    OwnerShipType ownerShip;
-    bool nonatomic;
-    std::string setterName;
-    std::string getterName;
-    std::string ivarName;
+    DynamOCMethod() {}
+    DynamOCMethod(const DynamOCMethod& method);
+    ~DynamOCMethod() {}
+    bool isInstanceMethod;
+    std::vector<std::string> paramNames;
+    std::stringstream codeBuffer;
 };
 
 #endif

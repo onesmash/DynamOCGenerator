@@ -22,19 +22,26 @@
 #ifndef DYNAMOC_GENERATOR_GENERATECONTEXT
 #define DYNAMOC_GENERATOR_GENERATECONTEXT
 
-#include "ObjCIVar.h"
-#include "ObjCProperty.h"
-#include "ObjCMethod.h"
-#include <unordered_map>
+#include "DynamOCClassModel.h"
+#include "DynamOCIVar.h"
+#include "DynamOCProperty.h"
+#include "DynamOCMethod.h"
 #include <memory>
+
+class ObjCMethod;
 
 class GenerateContext {
 public:
-    std::unordered_map<std::string, std::shared_ptr<ObjCIVar> > ivars;
-    std::unordered_map<std::string, std::shared_ptr<ObjCProperty> > properties;
-    std::unordered_map<std::string, std::shared_ptr<ObjCMethod> > methods;
+    GenerateContext() {}
+    ~GenerateContext() {}
+    std::shared_ptr<DynamOCMethod> currentGenMethod;
 
-    std::shared_ptr<ObjCMethod> currentGenMethod;
+    void addIVar(const DynamOCIVar& ivar);
+    void addPropery(const DynamOCProperty& property);
+    void addMethod(const DynamOCMethod& method);
+
+private:
+    DynamOCClassModel model_;
 };
 
 #endif

@@ -1,5 +1,5 @@
 //
-// Created on Thu Mar 30 2017
+// Created on Fri Mar 31 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -19,11 +19,22 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#include "ObjCProperty.h"
+#ifndef DYNAMOC_GENERATOR_OBJCCLASSMODEL
+#define DYNAMOC_GENERATOR_OBJCCLASSMODEL
 
-ObjCProperty::ObjCProperty(const ObjCProperty& property)
-: ObjCClassComponentAttribute(property), 
-readOnly(property.readOnly), ownerShip(property.ownerShip), nonatomic(property.nonatomic), 
-setterName(property.setterName), getterName(property.getterName), ivarName(property.ivarName)
-{
-}
+#include "DynamOCIVar.h"
+#include "DynamOCProperty.h"
+#include "DynamOCMethod.h"
+#include <string>
+#include <unordered_map>
+
+class DynamOCClassModel {
+public:
+    DynamOCClassModel() {}
+    ~DynamOCClassModel() {}
+    std::unordered_map<std::string, DynamOCIVar > ivars;
+    std::unordered_map<std::string, DynamOCProperty > properties;
+    std::unordered_map<std::string, DynamOCMethod > methods;
+};
+
+#endif

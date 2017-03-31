@@ -1,9 +1,8 @@
 #ifndef DYNAMOC_GENERATOR_INTERFACE
 #define DYNAMOC_GENERATOR_INTERFACE
 
+#include "GenerateContext.h"
 #include <memory>
-
-class GenerateContext;
 
 template <typename MatcherT>
 class GeneratorInterface {

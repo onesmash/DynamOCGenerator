@@ -19,19 +19,11 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#ifndef DYNAMOC_GENERATOR_OBJCMETHOD
-#define DYNAMOC_GENERATOR_OBJCMETHOD
+#include "DynamOCProperty.h"
 
-#include "ObjCClassComponentAttribute.h"
-#include <sstream>
-
-class ObjCMethod: public ObjCClassComponentAttribute {
-public:
-    ObjCMethod() {}
-    ObjCMethod(const ObjCMethod& method);
-    ~ObjCMethod() {}
-    bool isInstanceMethod;
-    std::stringstream codeBuffer;
-};
-
-#endif
+DynamOCProperty::DynamOCProperty(const DynamOCProperty& property)
+: ObjCClassComponentAttribute(property), 
+readOnly(property.readOnly), ownerShip(property.ownerShip), nonatomic(property.nonatomic), 
+setterName(property.setterName), getterName(property.getterName), ivarName(property.ivarName)
+{
+}
