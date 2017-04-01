@@ -45,9 +45,19 @@ void VarDeclGenerator::run(const MatchFinder::MatchResult &result)
     const VarDecl *vd = result.Nodes.getNodeAs<VarDecl>(bindName_);
     if(!vd || !Context->getSourceManager().isWrittenInMainFile(vd->getLocation()))
         return;
-    if(vd->isLocalVarDecl()) {
-        vd->dump();
+    if(!vd->hasLocalStorage()) {
+        llvm::errs() << "error: only support local var " << vd->getNameAsString() << "\n";
+        return;
     }
+    if(!vd->isLocalVarDecl()) {
+        return;
+    }
+    if(!vd->hasInit ()) {
+        context_->currentGenMethod->codeBuffer << "local " << vd->getNameAsString() << endl;
+    } else {
+
+    }
+    cout << context_->currentGenMethod->codeBuffer.str() << endl;
 }
 
 const DeclarationMatcher& VarDeclGenerator::matcher()
