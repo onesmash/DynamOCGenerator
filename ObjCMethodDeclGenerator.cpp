@@ -65,6 +65,7 @@ void ObjCMethodDeclGenerator::run(const MatchFinder::MatchResult &result)
         string name = (*iter)->getNameAsString();
         context_->currentGenMethod->paramNames.push_back(name);
     }
+    
 }
 
 const DeclarationMatcher& ObjCMethodDeclGenerator::matcher()

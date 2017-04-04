@@ -1,5 +1,5 @@
 //
-// Created on Tue Mar 28 2017
+// Created on Tue Apr 04 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -19,10 +19,9 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-
-#include "CompoundStatementGenerator.h"
+#include "ParenExpressionGenerator.h"
 #include "clang/AST/ASTContext.h"
-#include "clang/AST/Stmt.h"
+#include "clang/AST/ExprObjC.h"
 #include <iostream>
 #include <string>
 
@@ -30,27 +29,42 @@ using namespace std;
 using namespace clang;
 using namespace clang::ast_matchers;
 
-CompoundStatementGenerator::CompoundStatementGenerator(shared_ptr<GenerateContext> context)
-: GeneratorInterface(context), bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
+ParenExpressionGenerator::ParenExpressionGenerator(shared_ptr<GenerateContext> context)
+: GeneratorInterface(context), bindName_("parnExpr"), 
+matcher_(parenExpr().bind("parenExpr"))
 {
 
 }
 
-CompoundStatementGenerator::~CompoundStatementGenerator()
+ParenExpressionGenerator::~ParenExpressionGenerator()
 {
 
 }
 
-void CompoundStatementGenerator::run(const MatchFinder::MatchResult &result) 
+void ParenExpressionGenerator::run(const MatchFinder::MatchResult &result) 
 {
     ASTContext *context = result.Context;
-    const CompoundStmt *stmt = result.Nodes.getNodeAs<CompoundStmt>(bindName_);
-    if(!stmt || !context->getSourceManager().isWrittenInMainFile(stmt->getLocStart()))
+    const ParenExpr *expr = result.Nodes.getNodeAs<ParenExpr>(bindName_);
+    if(!expr || !context->getSourceManager().isWrittenInMainFile(expr->getLocStart()))
         return;
-    //stmt->dump();
+    expr->dump();
 }
 
-const StatementMatcher& CompoundStatementGenerator::matcher()
+ void ParenExpressionGenerator::onStartOfTranslationUnit()
+ {
+     if(context_->currentGenMethod != nullptr) {
+         context_->currentGenMethod->codeBuffer << "(" << " ";
+     }
+ }
+ 
+void ParenExpressionGenerator::onEndOfTranslationUnit()
+{
+    if(context_->currentGenMethod != nullptr) {
+        context_->currentGenMethod->codeBuffer << ")" << " ";
+    }
+}
+
+const StatementMatcher& ParenExpressionGenerator::matcher()
 {
     return matcher_;
 }

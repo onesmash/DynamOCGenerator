@@ -1,5 +1,5 @@
 //
-// Created on Tue Mar 28 2017
+// Created on Tue Apr 04 2017
 //
 // The MIT License (MIT)
 // Copyright @ 2017 Xu Hui
@@ -19,38 +19,24 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#ifndef DYNAMOC_GENERATOR_PARENEXPRESSION
+#define DYNAMOC_GENERATOR_PARENEXPRESSION
 
-#include "CompoundStatementGenerator.h"
-#include "clang/AST/ASTContext.h"
-#include "clang/AST/Stmt.h"
-#include <iostream>
-#include <string>
+#include "clang/ASTMatchers/ASTMatchFinder.h"
+#include "clang/ASTMatchers/ASTMatchers.h"
+#include "GeneratorInterface.h"
 
-using namespace std;
-using namespace clang;
-using namespace clang::ast_matchers;
+class ParenExpressionGenerator: public GeneratorInterface<clang::ast_matchers::StatementMatcher>, public clang::ast_matchers::MatchFinder::MatchCallback {
+public:
+    ParenExpressionGenerator(std::shared_ptr<GenerateContext> context);
+    virtual ~ParenExpressionGenerator();
+    virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
+    virtual const clang::ast_matchers::StatementMatcher& matcher();
+    virtual void onStartOfTranslationUnit();
+    virtual void onEndOfTranslationUnit();
+private:
+    std::string bindName_;
+    clang::ast_matchers::StatementMatcher matcher_;
+};
 
-CompoundStatementGenerator::CompoundStatementGenerator(shared_ptr<GenerateContext> context)
-: GeneratorInterface(context), bindName_("compoundStmt"), matcher_(compoundStmt().bind(bindName_))
-{
-
-}
-
-CompoundStatementGenerator::~CompoundStatementGenerator()
-{
-
-}
-
-void CompoundStatementGenerator::run(const MatchFinder::MatchResult &result) 
-{
-    ASTContext *context = result.Context;
-    const CompoundStmt *stmt = result.Nodes.getNodeAs<CompoundStmt>(bindName_);
-    if(!stmt || !context->getSourceManager().isWrittenInMainFile(stmt->getLocStart()))
-        return;
-    //stmt->dump();
-}
-
-const StatementMatcher& CompoundStatementGenerator::matcher()
-{
-    return matcher_;
-}
+#endif

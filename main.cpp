@@ -80,8 +80,12 @@ int main(int argc, const char *argv[]) {
   VarDeclGenerator varDeclGen(genContext);
   CompoundStatementGenerator compoundStmtGen(genContext);
   ObjCMethodDeclGenerator objcMethodDeclGen(genContext);
+  ExpressionGenerator exprGen(genContext);
+  ParenExpressionGenerator parenExprGen(genContext);
   finder.addMatcher(varDeclGen.matcher(), &varDeclGen);
   finder.addMatcher(compoundStmtGen.matcher(), &compoundStmtGen);
   finder.addMatcher(objcMethodDeclGen.matcher(), &objcMethodDeclGen);
+  finder.addMatcher(exprGen.matcher(), &exprGen);
+  finder.addMatcher(parenExprGen.matcher(), &parenExprGen);
   return tool.run(newFrontendActionFactory(&finder).get());
 }

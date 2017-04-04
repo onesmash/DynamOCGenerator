@@ -41,9 +41,9 @@ VarDeclGenerator::~VarDeclGenerator()
 
 void VarDeclGenerator::run(const MatchFinder::MatchResult &result) 
 {
-    ASTContext *Context = result.Context;
+    ASTContext *context = result.Context;
     const VarDecl *vd = result.Nodes.getNodeAs<VarDecl>(bindName_);
-    if(!vd || !Context->getSourceManager().isWrittenInMainFile(vd->getLocation()))
+    if(!vd || !context->getSourceManager().isWrittenInMainFile(vd->getLocation()))
         return;
     if(!vd->hasLocalStorage()) {
         llvm::errs() << "error: only support local var " << vd->getNameAsString() << "\n";
@@ -53,9 +53,9 @@ void VarDeclGenerator::run(const MatchFinder::MatchResult &result)
         return;
     }
     if(!vd->hasInit ()) {
-        context_->currentGenMethod->codeBuffer << "local " << vd->getNameAsString() << endl;
+        context_->currentGenMethod->codeBuffer << "local " << vd->getNameAsString() << " ";
     } else {
-
+        context_->currentGenMethod->codeBuffer << "local " << vd->getNameAsString() << " = ";
     }
     cout << context_->currentGenMethod->codeBuffer.str() << endl;
 }

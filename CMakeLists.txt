@@ -12,6 +12,7 @@ add_clang_executable(DynamOCGenerator
   SynchronizedStatementGenerator.cpp
   AutoreleaseStatementGenerator.cpp
   ObjCMethodDeclGenerator.cpp
+  ParenExpressionGenerator.cpp
   ObjCClassComponentAttribute.cpp
   DynamOCIVar.cpp
   DynamOCProperty.cpp
