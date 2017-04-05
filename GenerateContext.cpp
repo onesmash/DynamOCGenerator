@@ -20,6 +20,7 @@
 //
 
 #include "GenerateContext.h"
+using namespace std;
 
 void GenerateContext::addIVar(const DynamOCIVar& ivar)
 {
@@ -34,4 +35,23 @@ void GenerateContext::addPropery(const DynamOCProperty& property)
 void GenerateContext::addMethod(const DynamOCMethod& method)
 {
     model_.methods.insert({method.name, method});
+}
+
+void GenerateContext::pushCodeBlockEndLoc(CodeBlockType type, clang::ast_matchers::dynamic::SourceLocation loc)
+{
+    codeBlockEndLocs_.push_back({type, loc});
+}
+
+void GenerateContext::checkMatchLocation(clang::ast_matchers::dynamic::SourceLocation loc)
+{
+    if(codeBlockEndLocs_.size()) {
+        auto codeBlock = codeBlockEndLocs_.back();
+        if(loc.Column > codeBlock.second.Colum && loc.Line >= codeBlock.second.Line) {
+            if(codeBlock.first == kCodeBlockTypeParen) {
+                
+            } else if(codeBlock.first == kCodeBlockTypeCompound) {
+                
+            }
+        }
+    }
 }

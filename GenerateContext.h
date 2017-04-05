@@ -26,7 +26,9 @@
 #include "DynamOCIVar.h"
 #include "DynamOCProperty.h"
 #include "DynamOCMethod.h"
+#include "clang/ASTMatchers/Dynamic/Diagnostics.h"
 #include <memory>
+#include <vector>
 
 class ObjCMethod;
 
@@ -40,8 +42,16 @@ public:
     void addPropery(const DynamOCProperty& property);
     void addMethod(const DynamOCMethod& method);
 
+    void pushCodeBlockEndLoc(CodeBlockType type, clang::ast_matchers::dynamic::SourceLocation loc);
+    void checkMatchLocation(clang::ast_matchers::dynamic::SourceLocation loc);
+
 private:
+    enum CodeBlockType {
+        kCodeBlockTypeParen,
+        kCodeBlockTypeCompound
+    };
     DynamOCClassModel model_;
+    std::vector<std::pair<CodeBlockType, clang::ast_matchers::dynamic::SourceLocation> > codeBlockEndLocs_;
 };
 
 #endif
